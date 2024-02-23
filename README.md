@@ -2,31 +2,31 @@
 
 Este es un proyecto de gestión de inventario desarrollado en Django.
 
-## Instalación
+    ## Instalación
 
 1. Clona este repositorio en tu máquina local:
 
-##git clone https://github.com/Beavillalta/Django_gestion_de_inventario.git
+    ##git clone https://github.com/Beavillalta/Django_gestion_de_inventario.git
 
 Instala las dependencias del proyecto:
  
-##pip install -r requirements.txt
+    ##pip install -r requirements.txt
 
 Crea un archivo .env en el directorio raíz del proyecto y configura las variables de entorno necesarias.  
 
 Realiza las migraciones de la base de datos:
 
-##python manage.py migrate
+    ##python manage.py migrate
 
 Crea un superusuario para acceder al panel de administración:
  
-##python manage.py createsuperuser
+    ##python manage.py createsuperuser
 
 Ejecutar localmente
 
 Para ejecutar el proyecto localmente, puedes utilizar el servidor de desarrollo de Django. Desde el directorio raíz del proyecto, ejecuta el siguiente comando:
 
-##python manage.py runserver
+    ##python manage.py runserver
  
 Después de ejecutar este comando, podrás acceder al proyecto en tu navegador web ingresando la dirección http://localhost:8000.
 
@@ -39,7 +39,7 @@ El proyecto sigue una estructura típica de Django, con los archivos y directori
 
  
  
-##gestion_de_inventario_proyect/
+    ##gestion_de_inventario_proyect/
     ├── inventario_app/   # Aplicación principal
     │   ├── migrations/   # Migraciones de la base de datos
     │   ├── static/       # Archivos estáticos (CSS, JavaScript, imágenes)
