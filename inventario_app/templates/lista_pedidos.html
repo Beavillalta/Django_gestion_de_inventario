@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos de Compra</title>
+</head>
+<body>
+    <h1>Lista de Pedidos de Compra</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Proveedor</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <!-- Agrega más encabezados según la información que desees mostrar -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.fecha_pedido }}</td>
+                <td>{{ pedido.proveedor }}</td>
+                <td>{{ pedido.descripcion }}</td>
+                <td>{{ pedido.cantidad }}</td>
+                <!-- Agrega más columnas según la información que desees mostrar -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

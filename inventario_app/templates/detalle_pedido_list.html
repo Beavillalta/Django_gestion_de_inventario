@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Pedido</title>
+</head>
+<body>
+    <h1>Detalle del Pedido</h1>
+    <p><strong>ID:</strong> {{ pedido.id }}</p>
+    <p><strong>Proveedor:</strong> {{ pedido.proveedor }}</p>
+    <p><strong>Fecha de Pedido:</strong> {{ pedido.fecha_pedido }}</p>
+    <h2>Detalles del Pedido:</h2>
+    <ul>
+        {% for detalle in detalles_pedido %}
+            <li>{{ detalle.producto.nombre }} - Cantidad: {{ detalle.cantidad }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'lista_pedidos' %}">Regresar a la lista de Pedidos</a>
+</body>
+</html>

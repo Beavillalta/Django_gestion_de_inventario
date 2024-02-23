@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Proveedores</title>
+</head>
+<body>
+    <h1>Lista de Proveedores</h1>
+    <!-- Mostrar la lista de proveedores -->
+    <ul>
+        {% for proveedor in proveedores %}
+            <li>{{ proveedor.nombre }}</li>
+        {% endfor %}
+    </ul>
+    <!-- Formulario para agregar un nuevo proveedor -->
+    <h2>Agregar Nuevo Proveedor</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

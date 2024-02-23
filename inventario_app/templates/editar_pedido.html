@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pedido</title>
+</head>
+<body>
+    <h1>Editar Pedido</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="pedido">Seleccionar Pedido:</label>
+        <select name="pedido" producto="pedido">
+            {% for pedido in pedidos %}
+                <option value="{{ pedido }}">{{ pedido }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="fecha_pedido">Fecha de Pedido:</label>
+        <input type="date" name="fecha_pedido" id="fecha_pedido"><br><br>
+        
+        <label for="proveedor">Proveedor:</label>
+        <input type="text" name="proveedor" id="proveedor"><br><br>
+        
+        <label for="productos">Productos:</label>
+        <input type="text" name="productos" id="productos"><br><br>
+        
+        <button type="submit">Editar Pedido</button>
+    </form>
+</body>
+</html>
+
