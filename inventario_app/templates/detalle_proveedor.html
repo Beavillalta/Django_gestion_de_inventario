@@ -1,10 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Pedido</title>
+    <title>Detalle del Proveedor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,15 +49,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>Eliminar Pedido</h1>
-        <p>¿Estás seguro de que deseas eliminar el pedido "{{ pedido.id }}"?</p>
-        <form action="{% url 'eliminar_pedido' pedido.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Eliminar</button>
-            <h1></h1>
-        </form>
-        <a href="{% url 'lista_pedidos' %}"><button>Cancelar</button></a>
-        <h1></h1>
-    </div>
+        <h1>Detalle del Proveedor</h1>
+        <p><strong>Nombre:</strong> {{ proveedor.nombre }}</p>
+        <p><strong>Direccion:</strong> {{ proveedor.direccion }}</p>
+        <p><strong>Telefono:</strong> {{ proveedor.telefono }}</p>
+        <h2>Detalles del Proveedor:</h2>
+        <ul>
+            {% for detalle in detalles_proveedor %}
+                <li>{{ detalle.proveedor.nombre }} - Cantidad: {{ detalle.cantidad }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'actualizar_proveedor' pk=proveedor.pk %}"><button>Actualizar</button></a>
+        <a href="{% url 'eliminar_proveedor' pk=proveedor.pk %}"><button>Eliminar</button></a>
+        <a href="{% url 'lista_proveedores' %}"><button>Volver</button></a>
+        
+    </div>  
 </body>
 </html>

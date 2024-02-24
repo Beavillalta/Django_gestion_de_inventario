@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Pedido</title>
+    <title>Actualizar Proveedor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,15 +50,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Eliminar Pedido</h1>
-        <p>¿Estás seguro de que deseas eliminar el pedido "{{ pedido.id }}"?</p>
-        <form action="{% url 'eliminar_pedido' pedido.id %}" method="post">
+        <h1>Actualizar Proveedor</h1>
+        <form method="post">
             {% csrf_token %}
-            <button type="submit">Eliminar</button>
-            <h1></h1>
+            {{ form.as_p }}
+            <button type="submit">Actualizar proveedor</button>
+            <button href="{% url 'lista_proveedores' %}">Volver</button>
         </form>
-        <a href="{% url 'lista_pedidos' %}"><button>Cancelar</button></a>
-        <h1></h1>
     </div>
 </body>
 </html>
