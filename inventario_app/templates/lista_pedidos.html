@@ -1,33 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pedidos de Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #121111;
+            color: #fff;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1e7ce0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2b106d;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Pedidos de Compra</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Proveedor</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <!-- Agrega más encabezados según la información que desees mostrar -->
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container"> 
+        <h1>Lista de Pedidos</h1>
+        <ul>
             {% for pedido in pedidos %}
-            <tr>
-                <td>{{ pedido.fecha_pedido }}</td>
-                <td>{{ pedido.proveedor }}</td>
-                <td>{{ pedido.descripcion }}</td>
-                <td>{{ pedido.cantidad }}</td>
-                <!-- Agrega más columnas según la información que desees mostrar -->
-            </tr>
+                <li>{{ pedido.tipo }}</li>
+                <li>{{ pedido.proveedor }}</li>
+                <li>{{ pedido.productos }}</li>     
+                <li><a href="{% url 'detalle_pedido' pk=pedido.pk %}"><button>Detalle</button></a></li>   
+                <h1></h1>
             {% endfor %}
-        </tbody>
-    </table>
+        </ul>
+    </div>
+    </div>
+    <h1>
+    <div class="container">
+        <a href="{% url 'crear_pedido' %}"><button>Crear Pedido</button></a>
+        <a href="{% url 'index' %}"><button>Volver</button></a>
+    </div>
 </body>
 </html>

@@ -1,17 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #121111;
+            color: #fff;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1e7ce0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2b106d;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Productos</h1>
-    <ul>
-        {% for producto in productos %}
-            <li><a href="{% url 'lista_productos' %}">{{ producto.nombre }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container"> 
+        <h1>Lista de Productos</h1>
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.nombre }}</li>
+                <li><a href="{% url 'detalle_producto' pk=producto.pk %}"><button>Detalle</button></a></li>   
+                <h1></h1>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+    <h1>
+    <div class="container">
+        <a href="{% url 'crear_producto' %}"><button>Crear Producto</button></a>
+        <a href="{% url 'index' %}"><button>Volver</button></a>
+    </div>
 </body>
 </html>
 

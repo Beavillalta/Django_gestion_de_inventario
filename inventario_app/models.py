@@ -39,14 +39,14 @@ class Pedido(models.Model):
     tipo = models.CharField(max_length=6, choices=TIPO_CHOICES, null=True)
     fecha_pedido = models.DateField()
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    productos = models.ManyToManyField(Producto, through='DetallePedido')
+    productos = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     descripcion = models.TextField(null=True)  # Nuevo atributo 'descripcion'
     cantidad = models.PositiveIntegerField()  # Nuevo atributo 'cantidad'
 
     def __str__(self):
         return f'Pedido de {self.proveedor} - {self.fecha_pedido}'
  
-class PedidoForm(forms.ModelForm):
+"""class PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido
         fields = ['fecha_pedido', 'proveedor', 'productos', 'cantidad']
@@ -62,13 +62,11 @@ class PedidoForm(forms.ModelForm):
         return pedido
 
 class DetallePedido(models.Model):
-    """
-    Modelo intermedio para representar los detalles de los pedidos de compra.
-    """
+ 
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'Detalle: {self.producto} - Cantidad: {self.cantidad}'
+        return f'Detalle: {self.producto} - Cantidad: {self.cantidad}"""
 

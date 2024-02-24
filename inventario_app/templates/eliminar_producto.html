@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Gestión de Inventario</title>
+    <title>Eliminar Producto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,15 +49,16 @@
     </style>
 </head>
 <body>
-    
     <div class="container">
-        <h1>Bienvenido a la Gestión de Inventario</h1>
-        
-        <h2>Aqui puedes gestionar lo siguiente: </h2>
-        <p><a class="btn" href="{% url 'lista_productos' %}"><button>PRODUCTOS</button></a></p>
-        <p><a class="btn" href="{% url 'lista_pedidos' %}"><button>PEDIDOS</button></a></p>
-        <p><a class="btn" href="{% url 'lista_proveedores' %}"><button>PROVEEDORES</button></a></p>
+        <h1>Eliminar Producto</h1>
+        <p>¿Estás seguro de que deseas eliminar el producto "{{ producto.nombre }}"?</p>
+        <form action="{% url 'eliminar_producto' producto.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+            <h1></h1>
+        </form>
+        <a href="{% url 'lista_productos' %}"><button>Cancelar</button></a>
+        <h1></h1>
     </div>
 </body>
 </html>
-

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Gestión de Inventario</title>
+    <title>Detalle del Pedido</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,15 +48,21 @@
     </style>
 </head>
 <body>
-    
     <div class="container">
-        <h1>Bienvenido a la Gestión de Inventario</h1>
+        <h1>Detalle del Pedido</h1>
+        <p><strong>ID:</strong> {{ pedido.id }}</p>
+        <p><strong>Proveedor:</strong> {{ pedido.proveedor }}</p>
+        <p><strong>Fecha de Pedido:</strong> {{ pedido.fecha_pedido }}</p>
+        <h2>Detalles del Pedido:</h2>
+        <ul>
+            {% for detalle in detalles_pedido %}
+                <li>{{ detalle.producto.nombre }} - Cantidad: {{ detalle.cantidad }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'actualizar_pedido' pk=pedido.pk %}"><button>Actualizar</button></a>
+        <a href="{% url 'eliminar_pedido' pk=pedido.pk %}"><button>Eliminar</button></a>
+        <a href="{% url 'lista_pedidos' %}"><button>Volver</button></a>
         
-        <h2>Aqui puedes gestionar lo siguiente: </h2>
-        <p><a class="btn" href="{% url 'lista_productos' %}"><button>PRODUCTOS</button></a></p>
-        <p><a class="btn" href="{% url 'lista_pedidos' %}"><button>PEDIDOS</button></a></p>
-        <p><a class="btn" href="{% url 'lista_proveedores' %}"><button>PROVEEDORES</button></a></p>
-    </div>
+    </div>  
 </body>
 </html>
-

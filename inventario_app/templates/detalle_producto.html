@@ -1,17 +1,64 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del Producto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #121111;
+            color: #fff;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1e7ce0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2b106d;
+        }
+    </style>
 </head>
 <body>
-    <h1>Detalle del Producto</h1>
-    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
-    <p><strong>Precio:</strong> {{ producto.precio }}</p>
-    <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
-    <!-- Agrega más detalles según las propiedades de tu modelo Producto -->
-    <a href="{% url 'lista_productos' %}">Regresar a la lista de productos</a>
+    <div class="container">
+        <h1>Detalle del Producto</h1>
+        <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+        <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+        <p><strong>Proveedor:</strong> {{ producto.proveedor }}</p>
+        <p><strong>cantidad disponible:</strong> {{ producto.cantidad_disponible }}</p>
+        <p><strong>Precio:</strong> {{ producto.precio }}</p>
+        <a href="{% url 'lista_productos' %}"><button>Volver</button></a>
+        <a href="{% url 'actualizar_producto' pk=producto.pk %}"><button>Actualizar</button></a>
+        <a href="{% url 'eliminar_producto' pk=producto.pk %}"><button>Eliminar</button></a>
+    </div>
 </body>
 </html>
-

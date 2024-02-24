@@ -4,13 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nuevo Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #121111;
+            color: #fff;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1e7ce0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2b106d;
+        }
+    </style>
 </head>
 <body>
-    <h1>Crear Nuevo Pedido</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar Pedido</button>
-    </form>
+    <div class="container"> 
+            <h1>Crear Nuevo Pedido</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                
+                <button type="submit">Guardar</button>
+            </form>
+            <a href="{% url 'lista_pedidos' %}"><button>Cancelar</button></a>
+    </div>
 </body>
 </html>

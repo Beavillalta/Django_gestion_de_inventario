@@ -3,15 +3,13 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from .models import Proveedor, Producto, Pedido, DetallePedido
-from .serializers import ProveedorSerializer, ProductoSerializer, PedidoSerializer, DetallePedidoSerializer
+from .models import Proveedor, Producto, Pedido  
+from .serializers import ProveedorSerializer, ProductoSerializer, PedidoSerializer 
 from django.shortcuts import render, redirect
-from .forms import ProductoForm, PedidoForm, EditarPedidoForm
+from .forms import ProductoForm, PedidoForm, ProveedorForm
 from rest_framework.response import Response
-from .models import Pedido
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import NuevoProveedorForm
-from .forms import PedidoForm, DetallePedidoFormSet
+
 
 
 
@@ -60,17 +58,15 @@ class PedidoListCreate(generics.ListCreateAPIView):
     serializer_class = PedidoSerializer
     permission_classes = [IsAuthenticated]
 
-class DetallePedidoListCreate(generics.ListCreateAPIView):
-    queryset = DetallePedido.objects.all()
+"""class DetallePedidoListCreate(generics.ListCreateAPIView):
+    queryset = Pedido.objects.all()
     serializer_class = DetallePedidoSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]"""
 
  
 
 def index(request):
-    productos = Producto.objects.all()
-    form = ProductoForm()
-    return render(request, 'index.html', {'productos': productos, 'form': form})
+     return render(request, 'index.html') 
 
 def lista_proveedores(request):
     proveedores = Proveedor.objects.all()
@@ -78,21 +74,26 @@ def lista_proveedores(request):
 
 def agregar_proveedor(request):
     if request.method == 'POST':
-        form = NuevoProveedorForm(request.POST)
+        form = ProveedorForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('lista_proveedores')
     else:
-        form = NuevoProveedorForm()
+        form = ProveedorForm()
     return render(request, 'agregar_proveedor.html', {'form': form})
 
 def lista_productos(request):
     productos = Producto.objects.all()
     return render(request, 'lista_productos.html', {'productos': productos})
 
-def detalle_producto(request):
-    productos = Producto.objects.all()  # Obtener todos los productos
-    return render(request, 'detalle_producto.html', {'productos': productos})
+ 
+
+from django.shortcuts import get_object_or_404
+
+def detalle_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)  # Obtener el producto con el ID proporcionado
+    return render(request, 'detalle_producto.html', {'producto': producto})
+
 
 def crear_producto(request):
     if request.method == 'POST':
@@ -103,6 +104,26 @@ def crear_producto(request):
     else:
         form = ProductoForm()
     return render(request, 'crear_producto.html', {'form': form})
+
+# Vista para actualizar un producto existente
+def actualizar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_producto', pk=pk)
+    else:
+        form = ProductoForm(instance=producto)
+    return render(request, 'actualizar_producto.html', {'form': form})
+
+# Vista para eliminar un producto existente
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('lista_productos')
+    return render(request, 'eliminar_producto.html', {'producto': producto})
 
 def formulario_pedido(request):
     if request.method == 'POST':
@@ -118,28 +139,42 @@ def formulario_pedido(request):
 
 def crear_pedido(request):
     if request.method == 'POST':
-        pedido_form = PedidoForm(request.POST)
-        detalle_formset = DetallePedidoFormSet(request.POST)
-        if pedido_form.is_valid() and detalle_formset.is_valid():
-            pedido = pedido_form.save()
-            detalles = detalle_formset.save(commit=False)
-            for detalle in detalles:
-                detalle.pedido = pedido
-                detalle.save()
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect('lista_pedidos')
     else:
-        pedido_form = PedidoForm()
-        detalle_formset = DetallePedidoFormSet()
-    return render(request, 'crear_pedido.html', {'pedido_form': pedido_form, 'detalle_formset': detalle_formset})
+        form = PedidoForm()
+    return render(request, 'crear_pedido.html', {'form': form})
+
+# Vista para actualizar un pedido existente
+def actualizar_pedido(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    if request.method == 'POST':
+        form = PedidoForm(request.POST, instance=pedido)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_pedido', pk=pk)
+    else:
+        form = PedidoForm(instance=pedido)
+    return render(request, 'actualizar_pedido.html', {'form': form})
+
+# Vista para eliminar un pedido existente
+def eliminar_pedido(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    if request.method == 'POST':
+        pedido.delete()
+        return redirect('lista_pedidos')
+    return render(request, 'eliminar_pedido.html', {'pedido': pedido})
 
 
 def lista_pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'lista_pedidos.html', {'pedidos': pedidos})
 
-def lista_detalles_pedido(request):
-    detalles = DetallePedido.objects.all()
-    return render(request, 'lista_detalles_pedido.html', {'detalles': detalles})
+def detalle_pedido(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)  # Obtener el producto con el ID proporcionado
+    return render(request, 'detalle_pedido.html', {'pedido': pedido})
 
  
 def editar_pedido(request):
@@ -148,12 +183,12 @@ def editar_pedido(request):
     if request.method == 'POST':
         pedido_id = request.POST.get('pedido_id')
         pedido = Pedido.objects.get(pk=pedido_id)
-        form = EditarPedidoForm(request.POST, instance=pedido)
+        form = PedidoForm(request.POST, instance=pedido)
         if form.is_valid():
             form.save()
             return redirect('lista_pedidos')
     else:
-        form = EditarPedidoForm()
+        form = PedidoForm()
     
     return render(request, 'editar_pedido.html', {'form': form, 'pedidos': pedidos})
 
@@ -162,12 +197,12 @@ def editar_compra(request, pedido_id):
     pedido = get_object_or_404(Pedido, pk=pedido_id)
 
     if request.method == 'POST':
-        form = EditarPedidoForm(request.POST, instance=pedido)
+        form = PedidoForm(request.POST, instance=pedido)
         if form.is_valid():
             form.save()
             return redirect('lista_pedidos')  # Redirigir a la lista de pedidos después de editar
     else:
-        form = EditarPedidoForm(instance=pedido)
+        form = PedidoForm(instance=pedido)
     
     return render(request, 'editar_compra.html', {'form': form, 'pedido': pedido})
 
